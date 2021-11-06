@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load static %}
+{% load social_share %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <title>Qr Code</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .bit{
+            
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .qr{
+            border-radius: 5px;
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: .5s;
+        }
+        .qr:hover{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        h1{
+            margin-top: 2px;
+            margin:0;
+        }
+
+        a{
+            text-decoration: none;
+            color: #fff;
+
+            
+        }
+        .btn{
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            background-color: black;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        #id_title{
+            outline: none;
+            padding: 5px 10px;
+        }
+        #id_url{    
+            outline: none;
+            padding: 5px 10px;
+        }
+        button{
+            outline: none;
+            overflow: hidden;
+            border: none;
+            padding:5px 10px;
+            border-radius: 2px;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+        .share{
+            color: black;
+            margin-bottom: 5px;
+        }
+    </style>
+  
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+       <div class=bit>
+        <input type="text" name="title" required id="id_title" placeholder="Title"/>
+       </div>
+       <div class='bit'>    
+        <input type="text" name="url" required id="id_url" placeholder="URL"/>
+       </div>
+       <div class='bit'>
+        <input type="hidden" name="qr_code" accept="image/*" id="id_qr_code" />
+       </div>
+       
+       <div class="bit">
+      <button type="submit">Submit</button>
+       </div>
+    </form>
+
+    {% for i in qr_code %}
+    <div class="qr">
+        <h1>{{i.title}}</h1>
+        <a target="_blank" href="{{i.url}}"><img src="/media/{{i.qr_code}}" alt=""></a>
+        <a class="btn" href="{% url 'delete' i.id %}">Delete</a>
+        {% post_to_telegram  object_or_url  "{{i.title}}"  %}
+        
+        <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3A//bb7d-82-215-101-34.ngrok.io/" class="share" target="_blank"> Post To Facebook</a>
+    </div>
+    
+    {% endfor %}
+    
+    
+</body>
+
+</html>
