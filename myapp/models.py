@@ -3,10 +3,12 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 from PIL import Image,ImageDraw
+from django.contrib.auth.models import User
 
 class YourModel(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    url = models.URLField()
+    url = models.TextField()
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
 
     

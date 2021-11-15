@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 {% load static %}
-{% load social_share %}
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/PC5nXTH/g4g.png">
-    <title>Qr Code</title>
+    <title>Register</title>
     <style>
         body{
             display: flex;
             align-items: center;
             flex-direction: column;
         }
+        .main{
+            display: flex;
+            height: 95vh;
+            
+        }
+        form{
+            margin-top: 30vh;
+        }
         .bit{
+            
             margin-top: 10px;
             display: flex;
             flex-direction: column;
@@ -39,7 +46,11 @@
 
         a{
             text-decoration: none;
-            color: #fff;
+            color: #000;
+            display: flex;
+            justify-content: center;
+            text-decoration: underline;
+            margin-top: 5px;
 
             
         }
@@ -68,42 +79,47 @@
             color: white;
             cursor: pointer;
         }
-        
+        .share{
+            color: black;
+            margin-bottom: 5px;
+        }
+        .inputt{
+            outline: none;
+            padding: 5px 10px;
+        }
     </style>
-  
 </head>
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="" method="post">
         {% csrf_token %}
-       <div class=bit>
-        <input type="text" name="title" required id="id_title" placeholder="Title"/>
-       </div>
-       <div class='bit'>    
-        <input type="text" name="url" required id="id_url" placeholder="Text or URL"/>
-       </div>
-       <div class='bit'>
-        <input type="hidden" value="{{request.user.id}}" name="user"  id="id_user" />
-        <input type="hidden" name="qr_code" accept="image/*" id="id_qr_code" />
-       </div>
-       
-       <div class="bit">
-      <button type="submit">Submit</button>
-       </div>
+        <div class="bit">
+            <input type="text" class="inputt" name="first_name" placeholder="Name">
+        </div>
+        <div class="bit">
+            <input type="text" class="inputt" name="username" placeholder="Username">
+        </div>
+        <div class="bit">
+            <input type="email" class="inputt" name="email" placeholder="Email">
+        </div>
+        <div class="bit">
+            <input type="password" class="inputt" name="password1" placeholder="Password">
+        </div>
+        <div class="bit">
+            <input type="password" class="inputt" name="password2" placeholder="Confirm password">
+        </div>
+        <div class="bit">
+            <button type="submit">Submit</button>
+        </div>
+        <div>
+            <a href="{% url 'login' %}">login</a>
+        </div>
+        <div style="color: rgb(206, 10, 10); text-align: center;
+        margin-top: 5px;">
+                {% for message in messages %}
+                {{message}}
+                {% endfor %}
+            </div>
     </form>
-
-    {% for i in qr_code %}
-    <div class="qr">
-        <h1>{{i.title}}</h1>
-        <a target="_blank" href="{{i.url}}"><img src="/media/{{i.qr_code}}" alt=""></a>
-        <a class="btn" href="{% url 'delete' i.id %}">Delete</a>
-        {% post_to_facebook    "Post to Facebook"  %}
-        
-        <!-- <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3A//bb7d-82-215-101-34.ngrok.io/" class="share" target="_blank"> Post To Facebook</a> -->
-    </div>
-    
-    {% endfor %}
-    
     
 </body>
-
 </html>
