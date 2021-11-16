@@ -1,0 +1,35 @@
+<div style="    
+display: flex;
+margin: auto;
+flex-direction: column;
+text-align: center;
+margin-top: 30vh;">
+    <h3>Password reset</h3>
+
+    <form method="post" >
+        {% csrf_token %}
+        <input type="email" name="email" autocomplete="email" maxlength="254" required="" id="id_email" placeholder="Email">
+        <div style="margin-top: 10px;">
+            <button style="outline: none;
+            overflow: hidden;
+            border: none;
+            padding:5px 10px;
+            border-radius: 2px;
+            background-color: black;
+            color: white;
+            cursor: pointer;" type="Submit" name="Send email">Submit</button>
+            <!-- <input type="Submit" name="Send email"> -->
+        </div>
+        <div style="margin-top: 10px;">
+            <button style="outline: none;
+            overflow: hidden;
+            border: none;
+            padding:5px 10px;
+            border-radius: 2px;
+            background-color: black;
+            color: white;
+            cursor: pointer;" onclick="window.history.back()" >Go back</button>
+        </div>
+
+    </form> 
+</div>

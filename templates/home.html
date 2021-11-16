@@ -73,6 +73,10 @@
   
 </head>
 <body>
+    <div style="    display: block;margin-left: auto;margin-right: 34px;margin-top: 15px;">
+         Hello {{request.user.username}}  |  
+        <a style="color: black;" href="{% url 'logout' %}">LogOut</a>
+    </div>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
        <div class=bit>
@@ -97,10 +101,7 @@
         <a target="_blank" href="{{i.url}}"><img src="/media/{{i.qr_code}}" alt=""></a>
         <a class="btn" href="{% url 'delete' i.id %}">Delete</a>
         {% post_to_facebook    "Post to Facebook"  %}
-        
-        <!-- <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3A//bb7d-82-215-101-34.ngrok.io/" class="share" target="_blank"> Post To Facebook</a> -->
     </div>
-    
     {% endfor %}
     
     

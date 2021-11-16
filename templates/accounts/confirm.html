@@ -1,0 +1,26 @@
+<div style="    display: flex;
+flex-direction: column;
+text-align: center;
+margin-top: 25vh;">
+    <h3>Enter new password</h3>
+<p>Please enter your new password twice so we can verify you typed it in correctly.</p>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <input type="password" name="new_password1" autocomplete="new-password" required="" id="id_new_password1" placeholder="Password">
+    </div>
+    <div  style="margin-top: 10px;">
+        <input type="password" name="new_password2" autocomplete="new-password" required="" id="id_new_password2" placeholder="Confirm password">
+    </div>
+    <div  style="margin-top: 10px;">
+        <button style="outline: none;
+        overflow: hidden;
+        border: none;
+        padding:5px 10px;
+        border-radius: 2px;
+        background-color: black;
+        color: white;
+        cursor: pointer;" type="Submit" name="Update Password">Submit</button>
+    </div>
+</form>
+</div>
