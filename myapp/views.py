@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.validators import URLValidator
 # Create your views here.
 
 @login_required(login_url='login')
@@ -16,7 +17,30 @@ def home(request):
         form.save()
         return redirect('home')
     qr_code = YourModel.objects.order_by('-id').filter(user=request.user.id)
-    return render(request, 'home.html', {"form":form,"qr_code":qr_code} )
+    validator = URLValidator() 
+    a = []
+    for i in qr_code:
+        try:
+            validator(f"{i.url}")
+            url = i.url
+            val = True
+        except:
+            url = i.url
+            val = False
+        a.append(
+            {
+                'id':i.id,
+                'title':i.title,
+                'url':url,
+                'val':val,
+                'qr_code':i.qr_code,
+
+
+                
+
+            }
+        )
+    return render(request, 'home.html', {"form":form,"qr_code":a} )
 
 def delete(request,pk):
     model = YourModel.objects.get(pk=pk)
@@ -77,3 +101,8 @@ def register(request):
 def logoutPAGE(request):
     logout(request)
     return redirect('login')
+
+
+def pages(request,pk):
+    data = YourModel.objects.get(pk=pk)
+    return render(request, 'page.html',{"i":data})

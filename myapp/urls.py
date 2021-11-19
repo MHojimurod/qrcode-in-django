@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth import logout
 from django.urls import path
-from .views import home, delete, loginPAGE, logoutPAGE, register
+from .views import home, delete, loginPAGE, logoutPAGE, pages, register
 from django.contrib.auth.models import User
 from django.contrib.auth import views as auth_views
 
@@ -14,6 +14,7 @@ urlpatterns = [
 
 
     path('home/',home,name='home'),
+    path('page/<int:pk>/',pages,name='page'),
     path('delete/<int:pk>',delete,name='delete'),
 
 

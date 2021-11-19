@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-{% load static %}
-{% load social_share %}
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/PC5nXTH/g4g.png">
-    <title>Qr Code</title>
+    <title>Title</title>
     <style>
         body{
             display: flex;
@@ -23,7 +19,7 @@
         }
         .qr{
             border-radius: 5px;
-            margin-top: 50px;
+            margin-top: 20vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -70,46 +66,25 @@
         }
         
     </style>
-  
 </head>
 <body>
-    <div style="    display: block;margin-left: auto;margin-right: 34px;margin-top: 15px;">
-         Hello {{request.user.username}}  |  
-        <a style="color: black;" href="{% url 'logout' %}">LogOut</a>
-    </div>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-       <div class=bit>
-        <input type="text" name="title" required id="id_title" placeholder="Title"/>
-       </div>
-       <div class='bit'>    
-        <input type="text" name="url" required id="id_url" placeholder="Text or URL"/>
-       </div>
-       <div class='bit'>
-        <input type="hidden" value="{{request.user.id}}" name="user"  id="id_user" />
-        <input type="hidden" name="qr_code" accept="image/*" id="id_qr_code" />
-       </div>
-       
-       <div class="bit">
-      <button type="submit">Submit</button>
-       </div>
-    </form>
-
-    {% for i in qr_code %}
-    
     <div class="qr">
         <h1>{{i.title}}</h1>
-        {% if i.val is True %}
-        <a target="_blank" href="{{i.url}}"><img src="/media/{{i.qr_code}}" alt=""></a>
-        {% else %}
-        <a  href="{% url 'page' i.id %}"><img src="/media/{{i.qr_code}}" alt=""></a>
-        {% endif %}
+        <img src="/media/{{i.qr_code}}" alt="">
+        <p>{{i.url}}</p>
         <a class="btn" href="{% url 'delete' i.id %}">Delete</a>
         <a class="btn" download="{{i.title}}" href="/media/{{i.qr_code}}">Download</a>
     </div>
-    {% endfor %}
-    
+    <!-- <div style="margin-top: 10px;">
+        <button style="outline: none;
+        overflow: hidden;
+        border: none;
+        padding:5px 10px;
+        border-radius: 2px;
+        background-color: black;
+        color: white;
+        cursor: pointer;" onclick="window.history.back()" >Go back</button>
+    </div> -->
     
 </body>
-
 </html>
