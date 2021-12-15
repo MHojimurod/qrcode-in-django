@@ -108,3 +108,7 @@ def logoutPAGE(request):
 def pages(request,pk):
     data = YourModel.objects.get(pk=pk)
     return render(request, 'page.html',{"i":data})
+
+
+
+
