@@ -13,6 +13,7 @@ from django.core.validators import URLValidator
 def home(request):
     model = YourModel()
     form = YOurMOdelForm(request.POST,request.FILES,instance=model)
+    print(request.POST)
     if form.is_valid():
         form.save()
         return redirect('home')
@@ -34,13 +35,14 @@ def home(request):
                 'url':url,
                 'val':val,
                 'qr_code':i.qr_code,
+                'color':i.color,
 
 
                 
 
             }
         )
-    return render(request, 'home.html', {"form":form,"qr_code":a} )
+    return render(request, 'home.html', {"form":form,"qr_code":a,'host':"http://f43a-82-215-101-34.ngrok.io"} )
 
 def delete(request,pk):
     model = YourModel.objects.get(pk=pk)

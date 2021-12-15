@@ -1,115 +1,205 @@
 <!DOCTYPE html>
-{% load static %}
-{% load social_share %}
+{% load static %} {% load social_share %}
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/PC5nXTH/g4g.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.ibb.co/PC5nXTH/g4g.png"
+    />
     <title>Qr Code</title>
     <style>
-        body{
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-        }
-        .bit{
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .qr{
-            border-radius: 5px;
-            margin-top: 50px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: .5s;
-        }
-        .qr:hover{
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        }
-        h1{
-            margin-top: 2px;
-            margin:0;
-        }
+      body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .bit {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .qr {
+        border-radius: 5px;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.5s;
+      }
+      .qr:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      h1 {
+        margin-top: 2px;
+        margin: 0;
+      }
 
-        a{
-            text-decoration: none;
-            color: #fff;
-
-            
-        }
-        .btn{
-            padding: 5px 10px;
-            margin-bottom: 10px;
-            background-color: black;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        #id_title{
-            outline: none;
-            padding: 5px 10px;
-        }
-        #id_url{    
-            outline: none;
-            padding: 5px 10px;
-        }
-        button{
-            outline: none;
-            overflow: hidden;
-            border: none;
-            padding:5px 10px;
-            border-radius: 2px;
-            background-color: black;
-            color: white;
-            cursor: pointer;
-        }
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+      .btn {
+        padding: 5px 19px;
+        margin-bottom: 10px;
+        background-color: var(--color-button);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-right: 16px;
+      }
+      .btn1 {
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        background-color: var(--color-button);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      #id_title {
+        outline: none;
+        padding: 5px 10px;
+      }
+      #id_url {
+        outline: none;
+        padding: 5px 10px;
+      }
+      button {
+        outline: none;
+        overflow: hidden;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 2px;
+        background-color: var(--color-button);
+        color: white;
+        cursor: pointer;
         
+        }
+        #id_color{
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          width: 200px;
+          height: 35px;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+        }
+        #id_color::-webkit-color-swatch{
+          border-radius:5px;
+          border: none;
+          
+      }
     </style>
-  
-</head>
-<body>
-    <div style="    display: block;margin-left: auto;margin-right: 34px;margin-top: 15px;">
-         Hello {{request.user.username}}  |  
-        <a style="color: black;" href="{% url 'logout' %}">LogOut</a>
+  </head>
+  <body>
+    <div
+      style="
+        display: block;
+        margin-left: auto;
+        margin-right: 34px;
+        margin-top: 15px;
+      "
+    >
+      Hello {{request.user.username}}  |  
+      <a style="color: black" href="{% url 'logout' %}">LogOut</a>
     </div>
     <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-       <div class=bit>
-        <input type="text" name="title" required id="id_title" placeholder="Title"/>
-       </div>
-       <div class='bit'>    
-        <input type="text" name="url" required id="id_url" placeholder="Text or URL"/>
-       </div>
-       <div class='bit'>
-        <input type="hidden" value="{{request.user.id}}" name="user"  id="id_user" />
+      {% csrf_token %}
+      <div class="bit">
+        <input
+          type="text"
+          name="title"
+          required
+          id="id_title"
+          placeholder="Title"
+        />
+      </div>
+      <div class="bit">
+        <input
+          type="text"
+          name="url"
+          required
+          id="id_url"
+          placeholder="Text or URL"
+        />
+      </div>
+      <div class="bit">
+        <input
+          type="hidden"
+          value="{{request.user.id}}"
+          name="user"
+          id="id_user"
+        />
         <input type="hidden" name="qr_code" accept="image/*" id="id_qr_code" />
-       </div>
-       
-       <div class="bit">
-      <button type="submit">Submit</button>
-       </div>
+      </div>
+     
+      <input type="color" name="color" id="id_color" value="#000"/>
+
+      <div class="bit">
+        <button type="submit" style="--color-button: black">Submit</button>
+      </div>
     </form>
 
     {% for i in qr_code %}
-    
+
     <div class="qr">
-        <h1>{{i.title}}</h1>
-        {% if i.val is True %}
-        <a target="_blank" href="{{i.url}}"><img src="/media/{{i.qr_code}}" alt=""></a>
-        {% else %}
-        <a  href="{% url 'page' i.id %}"><img src="/media/{{i.qr_code}}" alt=""></a>
-        {% endif %}
-        <a class="btn" href="{% url 'delete' i.id %}">Delete</a>
-        <a class="btn" download="{{i.title}}" href="/media/{{i.qr_code}}">Download</a>
+      <h1 style="color: {{i.color}}">{{i.title}}</h1>
+      {% if i.val is True %}
+      <a target="_blank" href="{{i.url}}"
+        ><img src="/media/{{i.qr_code}}" alt=""
+      /></a>
+      {% else %}
+      <a href="{% url 'page' i.id %}"
+        ><img src="/media/{{i.qr_code}}" alt=""
+      /></a>
+      {% endif %}
+      <div style="margin-bottom: 10px; display: flex; text-align: center">
+        <a
+          class="btn"
+          href="{% url 'delete' i.id %}"
+          style="--color-button: {{ i.color }}; display: flex; align-items: center; justify-content: center;"
+          >Delete</a
+        >
+        <!-- <a class="btn" href="https://t.me/share?url=http%3A%2F%2F9cfa-82-215-101-34.ngrok.io%2Fmedia%2Fqr_codes%2Fqr_code-dsf_1LAABIy.png&text=dfdf" style="border: 1px solid red;">
+                share</a> -->
+        <a
+        class="tgme_widget_share_btn btn"
+          style="display: flex; align-items: center; justify-content: center; background:{{i.color}}; padding:auto;"
+          href="https://t.me/share?url={{host}}/media/{{i.qr_code}}"
+          >
+          <img
+            style="width: 19   px; object-fit: cover;"
+            src="https://telegram.org/img/WidgetButton_LogoSmall.png"
+            alt=""
+          />
+          <span
+            class="tgme_widget_share_label"
+            target="_blank"
+            >Share</span
+          ></a
+        >
+
+        <!-- <script async src="{% static 'admin/index.js' %}" data-telegram-share-url="http://9cfa-82-215-101-34.ngrok.io/media/{{i.qr_code}}" data-comment="{{i.url}}" data-size="large"></script> -->
+        <script>
+          console.log(
+            document.currentScript.previousElementSibling.parentElement.getElementsByTagName(
+              "iframe"
+            )[0]
+          );
+        </script>
+      </div>
+      <a
+        class="btn1"
+        download="{{i.title}}"
+        href="/media/{{i.qr_code}}"
+        style="--color-button: {{ i.color }}"
+        >Download</a
+      >
     </div>
     {% endfor %}
-    
-    
-</body>
-
+  </body>
 </html>
