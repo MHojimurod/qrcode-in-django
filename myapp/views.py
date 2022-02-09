@@ -42,7 +42,7 @@ def home(request):
 
             }
         )
-    return render(request, 'home.html', {"form":form,"qr_code":a,'host':"http://f43a-82-215-101-34.ngrok.io"} )
+    return render(request, 'home.html', {"form":form,"qr_code":a,'host':"https://qrcodeuz.herokuapp.com"} )
 
 def delete(request,pk):
     model = YourModel.objects.get(pk=pk)
